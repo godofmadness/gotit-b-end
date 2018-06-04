@@ -1,9 +1,9 @@
-package com.ilegal.team.gotit.topic;
+package com.ilegal.team.gotit.atricle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Created by mm on 5/30/18.
@@ -16,11 +16,17 @@ public class TopicServiceImpl implements TopicService {
     private TopicDao topicDao;
 
     @Override
-    public TopicTO findOneById(String id) {
+    public ArticleTO findOneById(String id) {
         return topicDao.findById(id).orElse(null);
     }
 
-//    public TopicTO findByTitle(String title) {
+//    public ArticleTO findByTitle(String title) {
 //        return topicDao.findByEmailTitleStream(title);
 //    }
+
+
+    @Override
+    public List<ArticleTO> findByCategory(String category) {
+        return topicDao.findByCategoriesContaining(category);
+    }
 }
