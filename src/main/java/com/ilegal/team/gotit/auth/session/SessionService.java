@@ -8,4 +8,6 @@ public interface SessionService {
     void create(SessionTO session);
 
     SessionTO createSessionTOFromUserId(String userId);
+
+    SessionTO findByToken(String authToken);
 }

@@ -126,4 +126,20 @@ public class SessionTO {
     public void setDeleted(Long deleted) {
         this.deleted = deleted;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SessionTO{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", userId='").append(userId).append('\'');
+        sb.append(", token='").append(token).append('\'');
+        sb.append(", created=").append(created);
+        sb.append(", modified=").append(modified);
+        sb.append(", createdBy='").append(createdBy).append('\'');
+        sb.append(", modifiedBy='").append(modifiedBy).append('\'');
+        sb.append(", version=").append(version);
+        sb.append(", deleted=").append(deleted);
+        sb.append('}');
+        return sb.toString();
+    }
 }

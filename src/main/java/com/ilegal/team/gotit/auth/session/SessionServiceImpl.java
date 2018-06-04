@@ -26,4 +26,9 @@ public class SessionServiceImpl implements SessionService {
 
         return new SessionTO(UUID.randomUUID().toString(), userId, UUID.randomUUID().toString(), new Date().getTime(), new Date().getTime(), userId, userId, 0, Long.valueOf(0));
     }
+
+    @Override
+    public SessionTO findByToken(String authToken) {
+        return sessionDao.findByToken(authToken);
+    }
 }

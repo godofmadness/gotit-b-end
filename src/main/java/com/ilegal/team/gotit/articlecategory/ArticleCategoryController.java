@@ -34,6 +34,6 @@ public class ArticleCategoryController {
         logger.info("All articles categories " + articleCategories);
 
         return new ResponseEntity<>(articleCategories, HttpStatus.OK);
-
     }
+
 }

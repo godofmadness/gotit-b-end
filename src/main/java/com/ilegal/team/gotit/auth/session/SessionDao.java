@@ -11,4 +11,6 @@ public interface SessionDao extends JpaRepository<SessionTO, String> {
 
     @Override
     <S extends SessionTO> S save(S s);
+
+    SessionTO findByToken(String token);
 }

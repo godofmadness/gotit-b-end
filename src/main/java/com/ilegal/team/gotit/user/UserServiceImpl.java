@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.UUID;
 
@@ -44,5 +45,12 @@ public class UserServiceImpl implements UserService {
     public boolean isValidUser(UserCredentials userCredentials, UserTO user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.matches(userCredentials.getPassword(), user.getPassword());
+    }
+
+
+    @Override
+    @Transactional
+    public void updateCategories(String userId, String categories) {
+        userDao.updateUserCategories(userId, categories);
     }
 }

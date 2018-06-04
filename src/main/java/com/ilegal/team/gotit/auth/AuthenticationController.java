@@ -80,8 +80,7 @@ public class AuthenticationController {
         sessionService.create(session);
 
         logger.info("session created" + session);
-
-        return new ResponseEntity<String>(session.getToken(), HttpStatus.OK);
+        return new ResponseEntity<>(session.getToken(), HttpStatus.OK);
     }
 
 

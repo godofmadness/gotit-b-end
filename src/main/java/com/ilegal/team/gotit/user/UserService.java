@@ -15,4 +15,6 @@ public interface UserService {
     UserTO findByUsername(String username);
 
     boolean isValidUser(UserCredentials userCredentials, UserTO user);
+
+    void updateCategories(String userId, String categories);
 }
