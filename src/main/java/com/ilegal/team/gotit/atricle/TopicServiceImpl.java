@@ -13,7 +13,7 @@ public class TopicServiceImpl implements TopicService {
 
 
     @Autowired
-    private TopicDao topicDao;
+    private ArticleDao topicDao;
 
     @Override
     public ArticleTO findOneById(String id) {
@@ -34,4 +34,11 @@ public class TopicServiceImpl implements TopicService {
     public List<ArticleTO> findByUserId(String userid) {
         return topicDao.findByUserId(userid);
     }
+
+    @Override
+    public void create(ArticleTO article) {
+        topicDao.save(article);
+    }
 }
+
+

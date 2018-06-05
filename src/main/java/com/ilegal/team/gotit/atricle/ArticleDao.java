@@ -13,7 +13,7 @@ import java.util.Optional;
 
 // use only one table requests via ORM (don't use relation requests with ORM, use raw queries via @Query)
 
-public interface TopicDao extends JpaRepository<ArticleTO, String> {
+public interface ArticleDao extends JpaRepository<ArticleTO, String> {
 
     @Override
     Optional<ArticleTO> findById(String id);
@@ -21,6 +21,9 @@ public interface TopicDao extends JpaRepository<ArticleTO, String> {
 //    @Query(value = "SELECT * FROM ARTICLE WHERE categories LIKE CONCAT('%',:category,'%')", nativeQuery = true)
 //    List<ArticleTO> findByCategory(@Param("category") String category);
     List<ArticleTO> findByCategoriesContaining(String category);
+
+    @Override
+    <S extends ArticleTO> S save(S s);
 
     List<ArticleTO> findByUserId(String userId);
 }

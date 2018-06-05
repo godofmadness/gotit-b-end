@@ -1,5 +1,6 @@
 package com.ilegal.team.gotit.resource;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
@@ -11,4 +12,5 @@ public interface ResourceService {
 
     void upload(Path path, MultipartFile file) throws StorageException;
 
+    Resource loadAsResource(Path path);
 }

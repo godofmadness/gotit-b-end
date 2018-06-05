@@ -7,12 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.nio.file.Paths;
 
 /**
@@ -62,7 +63,6 @@ public class ResourceController {
     public ResponseEntity<UploadStatus> handleFileUpload(@RequestParam("upload") MultipartFile file,
                                                  @RequestParam("at") String token,
                                                  @PathVariable("articleId") String articleId) {
-
         logger.info("auth token " + token);
         // no session case
         SessionTO session = sessionService.findByToken(token);
@@ -77,6 +77,17 @@ public class ResourceController {
 
         return new ResponseEntity<>( new UploadStatus(1),HttpStatus.OK);
     }
+
+    @GetMapping("/gotit/resource/{userId}/{articleId}/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable("filename") String filename, @PathVariable("userId") String userId, @PathVariable("articleId") String articleId) {
+
+
+        Resource file = resourceService.loadAsResource(Paths.get(DATA_SOURCE, userId, articleId, filename));
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+
 
 
     @ExceptionHandler(StorageFileNotFoundException.class)

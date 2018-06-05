@@ -1,5 +1,7 @@
 package com.ilegal.team.gotit.atricle;
 
+import com.ilegal.team.gotit.auth.session.SessionService;
+import com.ilegal.team.gotit.auth.session.SessionTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ArticleController {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private SessionService sessionService;
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/{userId}/{id}")
     private ResponseEntity<ArticleTO> findOne(@PathVariable String id) {
@@ -42,6 +47,34 @@ public class ArticleController {
 
         return new ResponseEntity<>(topic, HttpStatus.OK);
     }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/gotit/article")
+    private ResponseEntity<Void> create(@RequestBody ArticleTO article, @RequestHeader("Authorization") String token) {
+
+        SessionTO session = sessionService.findByToken(token);
+        if (session == null) {
+            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+        }
+
+        topicService.create(article);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+//    @RequestMapping(method = RequestMethod.POST, value = "/gotit/article/{articleId}/content")
+//    private ResponseEntity<Void> create(@PathVariable("articleId") String articleId, @RequestBody ArticleContent articleContent, @RequestHeader("Authorization") String token) {
+//
+//        SessionTO session = sessionService.findByToken(token);
+//        if (session == null) {
+//            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+//        }
+//
+//        logger.info("Article content " + articleContent);
+//
+//        topicService.create(article);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 
 

@@ -12,5 +12,7 @@ public interface TopicService {
     List<ArticleTO> findByCategory(String category);
 
     List<ArticleTO> findByUserId(String userid);
+
+    void create(ArticleTO article);
 //    ArticleTO findByTitle(String title);
 }
