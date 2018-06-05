@@ -40,6 +40,17 @@ public class UserController {
     }
 
 
+    @RequestMapping(method = RequestMethod.GET, value = "/gotit/user/{userId}")
+    private ResponseEntity<UserIdentity> findByUserId(@PathVariable("userId") String userId) {
+
+        UserTO user = userService.findOne(userId);
+
+        return new ResponseEntity<>(new UserIdentity(user.getId(), user.getUsername(), user.getInterestedCategories(), user.getRoles(), user.getCreated(), user.getModified(), user.getCreatedBy(), user.getModifiedBy(), user.getVersion(), user.getDeleted()), HttpStatus.OK);
+    }
+
+
+
+
     @RequestMapping(method = RequestMethod.POST, value = "/gotit/user/categories")
     private ResponseEntity<String> updateUserCategories(@RequestHeader("Authorization") String authToken, @RequestParam("categories") String categories) {
 
