@@ -1,6 +1,6 @@
 package com.ilegal.team.gotit.user;
 
-import com.ilegal.team.gotit.atricle.TopicController;
+import com.ilegal.team.gotit.atricle.ArticleController;
 import com.ilegal.team.gotit.auth.session.SessionService;
 import com.ilegal.team.gotit.auth.session.SessionTO;
 import org.slf4j.Logger;
@@ -25,7 +25,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    private static final Logger logger = LoggerFactory.getLogger(TopicController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/gotit/user")
+    private ResponseEntity<UserIdentity> findAuthenticatedUser(@RequestHeader("Authorization") String authToken) {
+
+        SessionTO session = sessionService.findByToken(authToken);
+        logger.info("session " + session);
+        UserTO user = userService.findOne(session.getUserId());
+        logger.info("user " + user);
+
+
+        return new ResponseEntity<>(new UserIdentity(user.getId(), user.getUsername(), user.getInterestedCategories(), user.getRoles(), user.getCreated(), user.getModified(), user.getCreatedBy(), user.getModifiedBy(), user.getVersion(), user.getDeleted()), HttpStatus.OK);
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/gotit/user/categories")
     private ResponseEntity<String> updateUserCategories(@RequestHeader("Authorization") String authToken, @RequestParam("categories") String categories) {

@@ -21,4 +21,6 @@ public interface TopicDao extends JpaRepository<ArticleTO, String> {
 //    @Query(value = "SELECT * FROM ARTICLE WHERE categories LIKE CONCAT('%',:category,'%')", nativeQuery = true)
 //    List<ArticleTO> findByCategory(@Param("category") String category);
     List<ArticleTO> findByCategoriesContaining(String category);
+
+    List<ArticleTO> findByUserId(String userId);
 }

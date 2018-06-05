@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
     public void updateCategories(String userId, String categories) {
         userDao.updateUserCategories(userId, categories);
     }
+
+
+    @Override
+    public UserTO findOne(String userId) {
+        return userDao.findById(userId).orElse(null);
+    }
 }

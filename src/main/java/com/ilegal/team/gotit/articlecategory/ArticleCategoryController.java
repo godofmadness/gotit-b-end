@@ -1,6 +1,6 @@
 package com.ilegal.team.gotit.articlecategory;
 
-import com.ilegal.team.gotit.atricle.TopicController;
+import com.ilegal.team.gotit.atricle.ArticleController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ArticleCategoryController {
 
-    private static final Logger logger = LoggerFactory.getLogger(TopicController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
     @Autowired
     private ArticleCategoryService articleCategoryService;

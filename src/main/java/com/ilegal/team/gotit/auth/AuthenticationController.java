@@ -1,6 +1,6 @@
 package com.ilegal.team.gotit.auth;
 
-import com.ilegal.team.gotit.atricle.TopicController;
+import com.ilegal.team.gotit.atricle.ArticleController;
 import com.ilegal.team.gotit.auth.session.SessionService;
 import com.ilegal.team.gotit.auth.session.SessionTO;
 import com.ilegal.team.gotit.user.UserCredentials;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(TopicController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
     @Autowired
     private AuthValidationService authValidationService;

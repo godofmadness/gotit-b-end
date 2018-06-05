@@ -29,4 +29,9 @@ public class TopicServiceImpl implements TopicService {
     public List<ArticleTO> findByCategory(String category) {
         return topicDao.findByCategoriesContaining(category);
     }
+
+    @Override
+    public List<ArticleTO> findByUserId(String userid) {
+        return topicDao.findByUserId(userid);
+    }
 }

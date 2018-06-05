@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,16 +14,17 @@ import java.util.List;
  */
 
 @RestController
-public class TopicController {
+@CrossOrigin(origins = "*")
+public class ArticleController {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(TopicController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
     @Autowired
     private TopicService topicService;
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/gotit/atricle/{userId}/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/{userId}/{id}")
     private ResponseEntity<ArticleTO> findOne(@PathVariable String id) {
 
         ArticleTO topic = topicService.findOneById(id);
@@ -32,6 +32,17 @@ public class TopicController {
 
         return new ResponseEntity<>(topic, HttpStatus.OK);
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/{userId}")
+    private ResponseEntity<List<ArticleTO>> findByUserId(@PathVariable String userId) {
+
+        List<ArticleTO> topic = topicService.findByUserId(userId);
+        logger.info("finded atricle by userId " + topic);
+
+        return new ResponseEntity<>(topic, HttpStatus.OK);
+    }
+
 
 
 

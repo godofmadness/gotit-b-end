@@ -10,5 +10,7 @@ public interface TopicService {
     ArticleTO findOneById(String id);
 
     List<ArticleTO> findByCategory(String category);
+
+    List<ArticleTO> findByUserId(String userid);
 //    ArticleTO findByTitle(String title);
 }

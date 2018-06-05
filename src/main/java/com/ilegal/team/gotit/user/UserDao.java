@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
+
 /**
  * Created by mm on 6/4/18.
  */
@@ -18,4 +20,9 @@ public interface UserDao extends JpaRepository<UserTO, String> {
     @Modifying
     @Query(value = "UPDATE USER SET interestedCategories = ?2 WHERE id = ?1", nativeQuery = true)
     void updateUserCategories(String id, String categories);
+
+
+    @Override
+    Optional<UserTO> findById(String s);
 }
+
