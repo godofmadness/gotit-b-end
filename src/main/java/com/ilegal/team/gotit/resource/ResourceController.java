@@ -22,6 +22,25 @@ import java.nio.file.Paths;
 @CrossOrigin(origins = "*")
 public class ResourceController {
 
+    private class UploadStatus {
+        private int uploaded;
+
+        public UploadStatus() {
+        }
+
+        public UploadStatus(int uploaded) {
+            this.uploaded = uploaded;
+        }
+
+        public int getUploaded() {
+            return uploaded;
+        }
+
+        public void setUploaded(int uploaded) {
+            this.uploaded = uploaded;
+        }
+    }
+
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
 
@@ -35,9 +54,12 @@ public class ResourceController {
     @Value("${storage.fs.rootPath}")
     private String DATA_SOURCE;
 
+
+
+
     // upload article resource
     @RequestMapping(method = RequestMethod.POST, value = "/gotit/resource/article/{articleId}")
-    public ResponseEntity<Void> handleFileUpload(@RequestParam("upload") MultipartFile file,
+    public ResponseEntity<UploadStatus> handleFileUpload(@RequestParam("upload") MultipartFile file,
                                                  @RequestParam("at") String token,
                                                  @PathVariable("articleId") String articleId) {
 
@@ -45,14 +67,15 @@ public class ResourceController {
         // no session case
         SessionTO session = sessionService.findByToken(token);
         if (session == null) {
-            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new UploadStatus(0), HttpStatus.UNAUTHORIZED);
         }
 
         logger.info("Starting upload of file ", file.getOriginalFilename());
         resourceService.upload(Paths.get(DATA_SOURCE, session.getUserId(), articleId, file.getOriginalFilename()), file);
         // find current session
 
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        return new ResponseEntity<>( new UploadStatus(1),HttpStatus.OK);
     }
 
 
