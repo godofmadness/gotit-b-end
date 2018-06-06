@@ -29,7 +29,7 @@ public class ArticleController {
     private SessionService sessionService;
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/{userId}/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/{id}")
     private ResponseEntity<ArticleTO> findOne(@PathVariable String id) {
 
         ArticleTO topic = topicService.findOneById(id);
@@ -39,7 +39,7 @@ public class ArticleController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/{userId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/gotit/article/user/{userId}")
     private ResponseEntity<List<ArticleTO>> findByUserId(@PathVariable String userId) {
 
         List<ArticleTO> topic = topicService.findByUserId(userId);

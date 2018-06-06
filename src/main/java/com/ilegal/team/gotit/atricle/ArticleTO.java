@@ -25,6 +25,9 @@ public class ArticleTO {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "content")
+    private String content;
+
     @Column(name = "likes")
     private Integer likes;
 
@@ -48,6 +51,25 @@ public class ArticleTO {
 
     @Column(name = "deleted")
     private Long deleted;
+
+    public ArticleTO() {
+    }
+
+    public ArticleTO(String id, String userId, String title, String description, String content, Integer likes, String categories, Long modified, Long created, String createdBy, String modifiedBy, Integer version, Long deleted) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.likes = likes;
+        this.categories = categories;
+        this.modified = modified;
+        this.created = created;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.version = version;
+        this.deleted = deleted;
+    }
 
     public String getId() {
         return id;
@@ -79,6 +101,14 @@ public class ArticleTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getLikes() {
@@ -142,24 +172,6 @@ public class ArticleTO {
     }
 
     public void setDeleted(Long deleted) {
-        this.deleted = deleted;
-    }
-
-    public ArticleTO() {
-    }
-
-    public ArticleTO(String id, String userId, String title, String description, Integer likes, String categories, Long modified, Long created, String createdBy, String modifiedBy, Integer version, Long deleted) {
-        this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-        this.likes = likes;
-        this.categories = categories;
-        this.modified = modified;
-        this.created = created;
-        this.createdBy = createdBy;
-        this.modifiedBy = modifiedBy;
-        this.version = version;
         this.deleted = deleted;
     }
 }

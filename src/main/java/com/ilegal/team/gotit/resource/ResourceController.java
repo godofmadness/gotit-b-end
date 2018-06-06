@@ -25,13 +25,8 @@ public class ResourceController {
 
     private class UploadStatus {
         private int uploaded;
-
-        public UploadStatus() {
-        }
-
-        public UploadStatus(int uploaded) {
-            this.uploaded = uploaded;
-        }
+        private String url;
+        private String filename;
 
         public int getUploaded() {
             return uploaded;
@@ -39,6 +34,31 @@ public class ResourceController {
 
         public void setUploaded(int uploaded) {
             this.uploaded = uploaded;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getFilename() {
+            return filename;
+        }
+
+        public void setFilename(String filename) {
+            this.filename = filename;
+        }
+
+        public UploadStatus(int uploaded, String url, String filename) {
+            this.uploaded = uploaded;
+            this.url = url;
+            this.filename = filename;
+        }
+
+        public UploadStatus() {
         }
     }
 
@@ -67,15 +87,16 @@ public class ResourceController {
         // no session case
         SessionTO session = sessionService.findByToken(token);
         if (session == null) {
-            return new ResponseEntity<>(new UploadStatus(0), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new UploadStatus(0, "", ""), HttpStatus.UNAUTHORIZED);
         }
 
         logger.info("Starting upload of file ", file.getOriginalFilename());
         resourceService.upload(Paths.get(DATA_SOURCE, session.getUserId(), articleId, file.getOriginalFilename()), file);
         // find current session
 
+        String loadPath = "http://192.168.56.1:8080/gotit/resource/" + session.getUserId() + "/" + articleId + "/" + file.getOriginalFilename();
 
-        return new ResponseEntity<>( new UploadStatus(1),HttpStatus.OK);
+        return new ResponseEntity<>( new UploadStatus(1, loadPath, file.getOriginalFilename()),HttpStatus.OK);
     }
 
     @GetMapping("/gotit/resource/{userId}/{articleId}/{filename:.+}")
