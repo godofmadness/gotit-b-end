@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Externalizable;
+
 /**
  * Created by mm on 6/4/18.
  */
@@ -39,6 +41,14 @@ public class AuthenticationController {
         if (!valid) {
             return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
         }
+
+        UserTO u = userService.findByUsername(userCredentials.getUsername());
+
+        if (u != null) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+
+
         // create user
         UserTO user = userService.createUserTOFromCredentials(userCredentials);
         userService.create(user);

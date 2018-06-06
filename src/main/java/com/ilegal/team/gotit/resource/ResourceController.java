@@ -94,7 +94,7 @@ public class ResourceController {
         resourceService.upload(Paths.get(DATA_SOURCE, session.getUserId(), articleId, file.getOriginalFilename()), file);
         // find current session
 
-        String loadPath = "http://192.168.56.1:8080/gotit/resource/" + session.getUserId() + "/" + articleId + "/" + file.getOriginalFilename();
+        String loadPath = "http://172.20.10.2:8080/gotit/resource/" + session.getUserId() + "/" + articleId + "/" + file.getOriginalFilename();
 
         return new ResponseEntity<>( new UploadStatus(1, loadPath, file.getOriginalFilename()),HttpStatus.OK);
     }
